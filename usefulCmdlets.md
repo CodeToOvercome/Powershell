@@ -22,35 +22,13 @@ To get list of mailboxes a user has access to
 
     Get-Mailbox |Get-MailboxPermission -User username
 
-### Mailbox Forwarding
-
-To get information on mailbox forwarding
-
-    Get-Mailbox username |Format-List delivertomailboxandforward,forwardingaddress
-
-To set mailbox forwarding with a local copy enabled
-
-    Set-Mailbox username -ForwardingAddress username@domain.com
-
-To remove mail forwarding
-
-    Set-Mailbox Bradp@o365info.com -ForwardingAddress $Null
-
 To copy mailbox data from one to another
 
     Search-Mailbox -Identity sourceMailbox@domain.com -TargetMailbox destMailboxName -TargetFolder "DestMailboxFolder"
 
-To find inactive mailbox in your exchange
-
-    Get-MessageTrace -RecipientAddress username@domain.com -StartDate 06/06/2019 -EndDate 07/05/2019
-
 To get list of all shared mailbox
 
     Get-Mailbox -Filter * -RecipientTypeDetails Shared  |Select-Object Name,PrimarySmtpAddress,RecipientTypeDetails,AccountDisabled |Export-Csv -Path 'filepath\filename.csv'
-
-To get list of all active mailboxes
-
-    Get-Mailbox -Filter * -RecipientTypeDetails UserMailbox |Where-Object {$_.AccountDisabled -eq $false }|Format-List -Property PrimarySmtpaddress |export-csv -Path 'folderPath\fileName.csv'
 
 To get list of members in Dynamic Distribution groups
 
@@ -73,6 +51,30 @@ To get to know what type of mailbox is something is
 To get Calendar Permissions level on a mailbox
 
     Get-MailboxFolderPermission -Identity username@domain.com:\calendar
+
+### Mailbox Forwarding
+
+To get information on mailbox forwarding
+
+    Get-Mailbox username |Format-List delivertomailboxandforward,forwardingaddress
+
+To set mailbox forwarding with a local copy enabled
+
+    Set-Mailbox username -ForwardingAddress username@domain.com
+
+To remove mail forwarding
+
+    Set-Mailbox Bradp@o365info.com -ForwardingAddress $Null
+
+### State of Mailbox
+
+To find inactive mailbox in your exchange
+
+    Get-MessageTrace -RecipientAddress username@domain.com -StartDate 06/06/2019 -EndDate 07/05/2019
+
+To get list of all active mailboxes
+
+    Get-Mailbox -Filter * -RecipientTypeDetails UserMailbox |Where-Object {$_.AccountDisabled -eq $false }|Format-List -Property PrimarySmtpaddress |export-csv -Path 'folderPath\fileName.csv'
 
 ### Mailbox Statistics
 
